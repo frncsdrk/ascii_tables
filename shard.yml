@@ -1,0 +1,19 @@
+name: tables
+version: 0.0.0
+
+authors:
+  - frncsdrk <git@frncsdrk.me>
+
+description: |
+  Create tables.
+
+# dependencies:
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    branch: master
+
+crystal: '>= 1.13.2'
+
+license: Unlicense
