@@ -36,6 +36,29 @@ module Tables
     end
     puts "cell lengths:", cell_lengths
     # /prepare
+
+    # output
+    # header
+    header_out = "#{config.separator}"
+    separator_out = "#{config.separator}"
+    config.headers.each_with_index do |header, i|
+      len = cell_lengths[i] - header.size
+      header_out += "#{header}#{" " * len}#{config.separator}"
+      separator_out += "#{"-" * cell_lengths[i]}#{config.separator}"
+    end
+    puts header_out
+    puts separator_out
+
+    # body
+    data.each do |row|
+      row_out = "#{config.separator}"
+      row.each_with_index do |cell, i|
+      len = cell_lengths[i] - cell.size
+        row_out += "#{cell}#{" " * len}#{config.separator}"
+      end
+      puts row_out
+    end
+    # /output
   end
 
   struct TableConfig
