@@ -10,6 +10,11 @@ describe Tables do
   it "renders" do
     config = Tables::TableConfig.new
     config.headers = ["one", "two", "three"]
-    Tables.render([["helo", ",", "world"]], config)
+    table = Tables.render([["helo", ",", "world"]], config)
+    table_lines = table.split("\n")
+    table_lines[0].should eq("|one |two|three|")
+    table_lines[1].should eq("|----|---|-----|")
+    table_lines[2].should eq("|helo|,  |world|")
+    puts table
   end
 end

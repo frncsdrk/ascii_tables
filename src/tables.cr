@@ -2,14 +2,13 @@
 module Tables
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 
-  # TODO: Implement config type (struct)
   # TODO: Implement configurable separators (output)
-  # TODO: Implement configurable headers
   # TODO: Implement strict mode (check number of items per line)
   # TODO: Implement markdown notation
   # TODO: Put your code here
 
-  def self.render(data : Array(Array(String)), config : TableConfig = TableConfig.new)
+  # TODO: Write docs
+  def self.render(data : Array(Array(String)), config : TableConfig = TableConfig.new) : String
     # prepare
     prev_row_size = nil
     cell_lengths = Array(Int32).new
@@ -38,6 +37,7 @@ module Tables
     # /prepare
 
     # output
+    output = ""
     # header
     header_out = "#{config.separator}"
     separator_out = "#{config.separator}"
@@ -46,8 +46,8 @@ module Tables
       header_out += "#{header}#{" " * len}#{config.separator}"
       separator_out += "#{"-" * cell_lengths[i]}#{config.separator}"
     end
-    puts header_out
-    puts separator_out
+    output += "#{header_out}\n"
+    output += "#{separator_out}\n"
 
     # body
     data.each do |row|
@@ -56,8 +56,10 @@ module Tables
       len = cell_lengths[i] - cell.size
         row_out += "#{cell}#{" " * len}#{config.separator}"
       end
-      puts row_out
+      output += "#{row_out}\n"
     end
+
+    output
     # /output
   end
 
