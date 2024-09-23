@@ -2,27 +2,20 @@
 module Tables
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
 
-  # TODO: Implement configurable separators (output)
-  # TODO: Implement strict mode (check number of items per line)
-  # TODO: Implement markdown notation
-  # TODO: Put your code here
-
-  # TODO: Write docs
+  # Renders an ASCII table. Supports Markdown formatting.
   def self.render(data : Array(Array(String)), config : TableConfig = TableConfig.new) : String
     # prepare
-    prev_row_size = nil
+    prev_row_size = config.headers.size
     cell_lengths = Array(Int32).new
     config.headers.each do |header|
       cell_lengths.push header.size
     end
     data.each do |row|
       if config.strict && prev_row_size != nil && prev_row_size != row.size
-        # throw error in strict mode
+        raise StrictError.new("Row has not the expected amount of elements")
       end
 
       new_row = row.sort_by { |item| item.size }
-      puts new_row
-      puts row
 
       row.each_with_index do |v, i|
         unless cell_lengths[i]?
@@ -32,29 +25,35 @@ module Tables
           cell_lengths[i] = v.size
         end
       end
+
+      prev_row_size = row.size
     end
-    puts "cell lengths:", cell_lengths
     # /prepare
 
     # output
+    if config.markdown
+      config.h_separator = "-"
+      config.v_separator = "|"
+    end
+
     output = ""
     # header
-    header_out = "#{config.separator}"
-    separator_out = "#{config.separator}"
+    header_out = "#{config.v_separator}"
+    separator_out = "#{config.v_separator}"
     config.headers.each_with_index do |header, i|
       len = cell_lengths[i] - header.size
-      header_out += "#{header}#{" " * len}#{config.separator}"
-      separator_out += "#{"-" * cell_lengths[i]}#{config.separator}"
+      header_out += "#{header}#{" " * len}#{config.v_separator}"
+      separator_out += "#{config.h_separator * cell_lengths[i]}#{config.v_separator}"
     end
     output += "#{header_out}\n"
     output += "#{separator_out}\n"
 
     # body
     data.each do |row|
-      row_out = "#{config.separator}"
+      row_out = "#{config.v_separator}"
       row.each_with_index do |cell, i|
       len = cell_lengths[i] - cell.size
-        row_out += "#{cell}#{" " * len}#{config.separator}"
+        row_out += "#{cell}#{" " * len}#{config.v_separator}"
       end
       output += "#{row_out}\n"
     end
@@ -63,17 +62,24 @@ module Tables
     # /output
   end
 
+  # Collection of configuration options for Tables.
   struct TableConfig
     property headers : Array(String)
     property markdown : Bool
-    property separator : String
+    property h_separator : String
+    property v_separator : String
     property strict : Bool
 
     def initialize
       @headers = Array(String).new
-      @markdown = false
-      @separator = "|"
+      @markdown = true
+      @h_separator = "-"
+      @v_separator = "|"
       @strict = true
     end
+  end
+
+  # Simple exception for strict mode.
+  class StrictError < Exception
   end
 end
