@@ -1,6 +1,6 @@
 # tables
 
-TODO: Write a description here
+Render ASCII tables.
 
 ## Installation
 
@@ -9,7 +9,7 @@ TODO: Write a description here
    ```yaml
    dependencies:
      tables:
-       github: your-github-user/tables
+       github: frncsdrk/tables
    ```
 
 2. Run `shards install`
@@ -20,11 +20,25 @@ TODO: Write a description here
 require "tables"
 ```
 
-TODO: Write usage instructions here
+Render tables with #render method.
+
+```crystal
+config = Tables::TableConfig.new
+config.headers = ["one", "two", "three"]
+
+table = Tables.render([["hello", ",", "world"]], config)
+```
 
 ## Development
 
-TODO: Write development instructions here
+### Requirements
+
+- Crystal installation
+- `make` for convenience
+
+### Setup
+
+- `shards install`
 
 ## Contributing
 
@@ -36,7 +50,7 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [frncsdrk](https://github.com/your-github-user) - creator and maintainer
+- [frncsdrk](https://github.com/frncsdrk) - creator and maintainer
 
 ## License
 
