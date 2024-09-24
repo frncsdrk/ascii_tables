@@ -1,11 +1,11 @@
-name: tables
+name: ascii-tables
 version: 0.0.0
 
 authors:
   - frncsdrk <git@frncsdrk.me>
 
 description: |
-  Create tables.
+  Create ASCII tables.
 
 # dependencies:
 

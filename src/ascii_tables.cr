@@ -1,16 +1,14 @@
-# Placeholder for Table namespace
-module Tables
+# Placeholder for AsciiTables namespace
+module AsciiTables
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
-
-  # TODO: Rename to `ascii-tables`
 
   # Renders an ASCII table. Supports Markdown formatting.
   #
-  # ```crystal
-  # config = Tables::TableConfig.new
+  # ```
+  # config = AsciiTables::TableConfig.new
   # config.headers = ["one", "two", "three"]
   #
-  # table = Tables.render([["hello", ",", "world"]], config)
+  # table = AsciiTables.render([["hello", ",", "world"]], config)
   # ```
   def self.render(data : Array(Array(String)), config : TableConfig = TableConfig.new) : String
     # prepare
@@ -71,8 +69,8 @@ module Tables
 
   # Collection of configuration options for Tables.
   #
-  # ```crystal
-  # config = Tables::TableConfig.new
+  # ```
+  # config = AsciiTables::TableConfig.new
   # config.headers = ["one", "two", "three"]
   # config.h_separator = "+"
   # config.v_separator = "*"
@@ -80,10 +78,10 @@ module Tables
   # ```
   struct TableConfig
     property headers : Array(String)
-    property? markdown : Bool
+    property markdown : Bool
     property h_separator : String
     property v_separator : String
-    property? strict : Bool
+    property strict : Bool
 
     def initialize
       @headers = Array(String).new

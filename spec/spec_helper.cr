@@ -1,2 +1,2 @@
 require "spec"
-require "../src/tables"
+require "../src/ascii_tables"
