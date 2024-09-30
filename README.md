@@ -9,7 +9,7 @@ Render ASCII tables.
    ```yaml
    dependencies:
      tables:
-       github: frncsdrk/ascii-tables
+       github: frncsdrk/ascii_tables
    ```
 
 2. Run `shards install`
@@ -17,7 +17,7 @@ Render ASCII tables.
 ## Usage
 
 ```crystal
-require "ascii-tables"
+require "ascii_tables"
 ```
 
 Render tables with #render method.
