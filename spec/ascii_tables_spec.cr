@@ -24,21 +24,21 @@ describe AsciiTables do
     begin
       AsciiTables.render([["one", "two"]], config)
     rescue ex
-      ex.message.should eq("Row has not the expected amount of elements")
+      ex.message.should eq("Row hasn't the expected amount of elements.")
     end
 
     # Too many elements in row
     begin
       AsciiTables.render([["one", "two", "three", "four"]], config)
     rescue ex
-      ex.message.should eq("Row has not the expected amount of elements")
+      ex.message.should eq("Row hasn't the expected amount of elements.")
     end
 
     # One correct row, followed by an incorrect one
     begin
       AsciiTables.render([["one", "two", "three"], ["one", "two"]], config)
     rescue ex
-      ex.message.should eq("Row has not the expected amount of elements")
+      ex.message.should eq("Row hasn't the expected amount of elements.")
     end
   end
 

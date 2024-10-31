@@ -19,7 +19,7 @@ module AsciiTables
     end
     data.each do |row|
       if config.strict && prev_row_size != nil && prev_row_size != row.size
-        raise StrictError.new("Row has not the expected amount of elements")
+        raise StrictError.new("Row hasn't the expected amount of elements.")
       end
 
       row.each_with_index do |v, i|
