@@ -1,6 +1,5 @@
 # ascii-tables
 
-
 [![CI](https://github.com/frncsdrk/ascii_tables/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/frncsdrk/ascii_tables/actions/workflows/ci.yml)
 
 Render ASCII tables.
