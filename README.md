@@ -1,4 +1,4 @@
-# ascii-tables
+# ascii_tables
 
 [![CI](https://github.com/frncsdrk/ascii_tables/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/frncsdrk/ascii_tables/actions/workflows/ci.yml)
 
@@ -29,6 +29,8 @@ config = AsciiTables::TableConfig.new
 config.headers = ["one", "two", "three"]
 
 table = AsciiTables.render([["hello", ",", "world"]], config)
+
+puts table
 ```
 
 ## Development

@@ -9,6 +9,8 @@ module AsciiTables
   # config.headers = ["one", "two", "three"]
   #
   # table = AsciiTables.render([["hello", ",", "world"]], config)
+  #
+  # puts table
   # ```
   def self.render(data : Array(Array(String)), config : TableConfig = TableConfig.new) : String
     # prepare
