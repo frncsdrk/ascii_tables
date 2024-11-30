@@ -97,4 +97,32 @@ describe AsciiTables do
     table_lines[1].should eq("*++++*+++*+++++*")
     table_lines[2].should eq("*helo*,  *world*")
   end
+
+  it "supports configurable vertical separator whitespace in markdown mode" do
+    config = AsciiTables::TableConfig.new
+    config.headers = ["one", "two", "three"]
+    config.v_separator_whitespace = 1
+    config.markdown = true
+
+    table = AsciiTables.render([["helo", ",", "world"]], config)
+    table_lines = table.split("\n")
+    table_lines[0].should eq("|  one  | two | three |")
+    table_lines[1].should eq("|-------|-----|-------|")
+    table_lines[2].should eq("|  helo | ,   | world |")
+  end
+
+  it "supports configurable vertical separator whitespace" do
+    config = AsciiTables::TableConfig.new
+    config.headers = ["one", "two", "three"]
+    config.h_separator = "+"
+    config.v_separator = "*"
+    config.v_separator_whitespace = 1
+    config.markdown = false
+
+    table = AsciiTables.render([["helo", ",", "world"]], config)
+    table_lines = table.split("\n")
+    table_lines[0].should eq("*  one  * two * three *")
+    table_lines[1].should eq("*+++++++*+++++*+++++++*")
+    table_lines[2].should eq("*  helo * ,   * world *")
+  end
 end

@@ -45,22 +45,38 @@ module AsciiTables
 
     output = ""
     # header
-    header_out = "#{config.v_separator}"
-    separator_out = "#{config.v_separator}"
+    header_out = "#{config.v_separator}#{" " * config.v_separator_whitespace}"
+    separator_out = "#{config.v_separator}#{config.h_separator * config.v_separator_whitespace}"
     config.headers.each_with_index do |header, i|
-      len = cell_lengths[i] - header.size
-      header_out += "#{header}#{" " * len}#{config.v_separator}"
-      separator_out += "#{config.h_separator * cell_lengths[i]}#{config.v_separator}"
+      len = (cell_lengths[i] - header.size)
+
+      # header title line
+      header_out += "#{" " * config.v_separator_whitespace}"
+      header_out += "#{header}"
+      header_out += "#{" " * len}"
+      header_out += "#{" " * config.v_separator_whitespace}"
+      header_out += "#{config.v_separator}"
+
+      # separator line
+      separator_out += "#{config.h_separator * config.v_separator_whitespace}"
+      separator_out += "#{config.h_separator * cell_lengths[i]}"
+      separator_out += "#{config.h_separator * config.v_separator_whitespace}"
+      separator_out += "#{config.v_separator}"
     end
     output += "#{header_out}\n"
     output += "#{separator_out}\n"
 
     # body
     data.each do |row|
-      row_out = "#{config.v_separator}"
+      row_out = "#{config.v_separator}#{" " * config.v_separator_whitespace}"
       row.each_with_index do |cell, i|
         len = cell_lengths[i] - cell.size
-        row_out += "#{cell}#{" " * len}#{config.v_separator}"
+
+        row_out += "#{" " * config.v_separator_whitespace}"
+        row_out += "#{cell}"
+        row_out += "#{" " * len}"
+        row_out += "#{" " * config.v_separator_whitespace}"
+        row_out += "#{config.v_separator}"
       end
       output += "#{row_out}\n"
     end
@@ -76,6 +92,7 @@ module AsciiTables
   # config.headers = ["one", "two", "three"]
   # config.h_separator = "+"
   # config.v_separator = "*"
+  # config.v_separator_whitespace = 1
   # config.markdown = true
   # ```
   struct TableConfig
@@ -83,6 +100,7 @@ module AsciiTables
     property markdown : Bool
     property h_separator : String
     property v_separator : String
+    property v_separator_whitespace : UInt8
     property strict : Bool
 
     def initialize
@@ -90,6 +108,7 @@ module AsciiTables
       @markdown = true
       @h_separator = "-"
       @v_separator = "|"
+      @v_separator_whitespace = 0
       @strict = true
     end
   end
